@@ -1,0 +1,63 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "cppbuild",
+			"label": "Linux C release",
+			"command": "/usr/bin/gcc",
+			"args": [
+				"-Wall",
+				"-o",
+				"${workspaceFolder}/bin/release/main",
+				"${fileDirname}/main.c",
+				"-lX11",
+				"-lraylib",
+				"-lGL",
+				"-lm",
+				"-lpthread",
+				"-ldl",
+				"-lrt",
+				"-Wl,-rpath,'$ORIGIN/libs'"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"detail": "compiler: /usr/bin/gcc"
+		},
+
+		{
+			"type": "cppbuild",
+			"label": "Linux C debug",
+			"command": "/usr/bin/gcc",
+			"args": [
+				"-Wall",
+				"-g",
+				"-o",
+				"${workspaceFolder}/bin/debug/main",
+				"${fileDirname}/main.c",
+				"-lX11",
+				"-lraylib",
+				"-lm",
+				"-lGL"
+			],
+			"options": {
+				"cwd": "${fileDirname}"
+			},
+			"problemMatcher": [
+				"$gcc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": false
+			},
+			"detail": "compiler: /usr/bin/gcc"
+		}
+	]
+}
