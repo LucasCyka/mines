@@ -1,13 +1,15 @@
 #include <raylib.h>
 #include <raymath.h>
+#include <stdbool.h>
 
 enum GAME_STATE {RUNNING,PAUSED};
 
 typedef struct
 {
     Vector2 position;
-    char isRevealed;
-    char hasBomb;
+    bool isRevealed;
+    bool hasBomb;
+    bool hasFlag;
 } tile;
 
 

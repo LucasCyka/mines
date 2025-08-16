@@ -6,6 +6,7 @@
 			"label": "Linux C release",
 			"command": "/usr/bin/gcc",
 			"args": [
+				"-std=c99",
 				"-Wall",
 				"-o",
 				"${workspaceFolder}/bin/release/main",
@@ -37,6 +38,7 @@
 			"label": "Linux C debug",
 			"command": "/usr/bin/gcc",
 			"args": [
+				"-std=c99",
 				"-Wall",
 				"-g",
 				"-o",
