@@ -7,6 +7,7 @@
 #include <stdbool.h>
 #include <raylib.h>
 #include <raymath.h>
+#include <string.h>
 
 enum GAME_STATE {RUNNING,PAUSED};
 
@@ -16,7 +17,7 @@ typedef struct{
     bool isRevealed;
     bool hasBomb;
     bool hasFlag;
-    char neighbourBombs;
+    char neighbourMines;
 } tile;
 
 typedef struct{
@@ -28,6 +29,8 @@ typedef struct{
 
 int windowWidth       = 800;
 int windowHeight      = 450;
+int elapsedTime       = 123;
+int hiddenNines       = 321; //hidden
 
 const int gameWidth   = 416;
 const int gameHeight  = 234;
@@ -42,6 +45,7 @@ Texture2D frame1;
 Texture2D frame2;
 Texture2D frame3;
 Texture2D smilling;
+Texture2D scoreNumbers[10];
 
 void InitBoard();
 void LoadTextures();
@@ -104,14 +108,43 @@ void InitBoard(){
     btn1.texture   = smilling;
     btn1.isPressed = false;
     buttons[0] = btn1;
+
+    //score
+    
 }
 
 void LoadTextures(){
-    hiddenTileTex = LoadTexture("../resources/tileHidden.png"); 
-    frame1        = LoadTexture("../resources/frame1.png");
-    frame2        = LoadTexture("../resources/frame2.png");
-    frame3        = LoadTexture("../resources/frame3.png");
-    smilling      = LoadTexture("../resources/btn_smiling.png");
+
+    if (!DirectoryExists(strcat(GetWorkingDirectory(),"/resources"))){
+        for(int i =0; i <2; i++){
+            
+            if (!ChangeDirectory(GetPrevDirectoryPath(GetWorkingDirectory()))){
+                printf("resource directory not found. Failure to change working directory.");
+            }
+            if ( DirectoryExists(strcat(GetWorkingDirectory(),"/resources"))) {
+                break;
+            }
+        }
+
+    }
+
+    //TODO: load from .json?
+    hiddenTileTex = LoadTexture("resources/tileHidden.png"); 
+    frame1        = LoadTexture("resources/frame1.png");
+    frame2        = LoadTexture("resources/frame2.png");
+    frame3        = LoadTexture("resources/frame3.png");
+    smilling      = LoadTexture("resources/btn_smiling.png");
+
+    scoreNumbers[0] = LoadTexture("resources/ScoreNumbers1.png"); 
+    scoreNumbers[1] = LoadTexture("resources/ScoreNumbers2.png"); 
+    scoreNumbers[2] = LoadTexture("resources/ScoreNumbers3.png"); 
+    scoreNumbers[3] = LoadTexture("resources/ScoreNumbers4.png"); 
+    scoreNumbers[4] = LoadTexture("resources/ScoreNumbers5.png"); 
+    scoreNumbers[5] = LoadTexture("resources/ScoreNumbers6.png"); 
+    scoreNumbers[6] = LoadTexture("resources/ScoreNumbers7.png"); 
+    scoreNumbers[7] = LoadTexture("resources/ScoreNumbers8.png"); 
+    scoreNumbers[8] = LoadTexture("resources/ScoreNumbers9.png"); 
+    scoreNumbers[9] = LoadTexture("resources/ScoreNumbers10.png"); 
 }
 
 void DrawBoard(){
@@ -130,14 +163,28 @@ void DrawBoard(){
             DrawTexture(btn.texture,btn.rec.x,btn.rec.y,WHITE);
         }
 
-        //counters
-
+        //tiles
         for(int i = 0; i < TILES_NUMBER; i++){
             tile cTile = tiles[i];
             DrawTexture(cTile.sprite,cTile.position.x,cTile.position.y,WHITE);
 
         }
 
+        //number of mines counter
+        //1s
+        DrawTexture(scoreNumbers[hiddenNines % 10],37,6,WHITE);
+        //10s
+        DrawTexture(scoreNumbers[(int) (hiddenNines/10) % 10],29,6,WHITE);
+        //100s
+        DrawTexture(scoreNumbers[(int) (hiddenNines/100) % 10],21,6,WHITE);
+
+        //timer
+        //1s
+        DrawTexture(scoreNumbers[elapsedTime % 10],386,6,WHITE);
+        //10s
+        DrawTexture(scoreNumbers[(int) (elapsedTime/10) % 10],379,6,WHITE);
+        //100s
+        DrawTexture(scoreNumbers[(int) (elapsedTime/100) % 10],371,6,WHITE);
 
     EndTextureMode();
 }
