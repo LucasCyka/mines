@@ -3,6 +3,8 @@
         "raylib.h": "c",
         "stdbool.h": "c",
         "raymath.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "board.h": "c",
+        "graphics.h": "c"
     }
 }
