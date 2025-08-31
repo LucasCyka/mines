@@ -42,7 +42,7 @@ int main(){
         {
         case STARTING:
             if (InitTiles()){
-                //Goes to running
+                currentState = RUNNING;
             }
 
             break;

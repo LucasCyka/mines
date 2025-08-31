@@ -7,7 +7,16 @@
 
 //textures
 extern Texture2D hiddenTileTex;
+extern Texture2D mine1TileTex;
+extern Texture2D mine2TileTex;
+extern Texture2D mine3TileTex;
+extern Texture2D mine4TileTex;
+extern Texture2D mine5TileTex;
+extern Texture2D mine6TileTex;
+extern Texture2D mine7TileTex;
+extern Texture2D mine8TileTex;
 extern Texture2D revealedTileTex;
+
 extern Texture2D frame1;
 extern Texture2D frame2;
 extern Texture2D frame3;

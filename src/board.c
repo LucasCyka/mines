@@ -4,7 +4,7 @@
 
 //RenderTexture2D boardFrame;
 tile tiles[TILES_NUMBER];
-tile pressedTile;
+int pressedTile = 0;
 
 void InitBoard(int tileWidth,int _gameWidth, int _gameHeight){
     gameWidth  = _gameWidth;
@@ -17,6 +17,7 @@ void InitBoard(int tileWidth,int _gameWidth, int _gameHeight){
             tiles[id].position  = (Vector2) {x*tileWidth+tileWidth,y*tileWidth+32};
             tiles[id].sprite    = hiddenTileTex;
             tiles[id].isPressed = false;
+            tiles[id].hasMine   = false;
 
             id++;
         }
@@ -32,25 +33,60 @@ void DrawBoard(){
 }
 
 bool InitTiles(){
-    if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
-        Vector2 pos = {GetMousePosition().x,GetMousePosition().y};
-        pos.x /= (float)GetScreenWidth()/gameWidth;
-        pos.y /= (float)GetScreenHeight()/gameHeight;
+    Vector2 pos = {GetMousePosition().x,GetMousePosition().y};
+    pos.x /= (float)GetScreenWidth()/gameWidth;
+    pos.y /= (float)GetScreenHeight()/gameHeight;
 
-        Rectangle mouseRec = {pos.x,pos.y,5,5};
-        
+    Rectangle mouseRec = {pos.x,pos.y,5,5};
+
+    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)){
+        bool pressed  = false;
         for (int id = 0; id < TILES_NUMBER; id++){
+            tiles[id].sprite = hiddenTileTex;
 
-            if ( CheckCollisionRecs((Rectangle){tiles[id].position.x,tiles[id].position.y,16,16},mouseRec)){
-                
+            if ( CheckCollisionRecs((Rectangle){tiles[id].position.x,tiles[id].position.y,16,16},mouseRec) && !pressed){
                 tiles[id].sprite = revealedTileTex;
-                //TODO: randomize mines 
-                break;
+                pressed          = true;
             }
 
         }
 
+    }else if(IsMouseButtonReleased(MOUSE_LEFT_BUTTON)){
+        for (int id = 0; id < TILES_NUMBER; id++){
+            tiles[id].sprite = hiddenTileTex;
+
+            if ( CheckCollisionRecs((Rectangle){tiles[id].position.x,tiles[id].position.y,16,16},mouseRec)){
+                
+                int mines = 0;
+                
+                while(mines != MINES_NUMBER){
+                    int randomId = GetRandomValue(0,TILES_NUMBER-1);
+                    
+                    if(randomId == id){continue;}
+
+                    if(!tiles[randomId].hasMine){
+                        tiles[randomId].hasMine = true;
+                        mines++;
+                    }
+                }
+
+                tiles[id].sprite = revealedTileTex;
+                revealTileFrom(id);
+                return true;
+            }
+
+        }
     }
+
+    return false;
+}
+
+int getTileNeighbours(int tileID){
+
+}
+
+bool revealTileFrom(int tileID){
+
 
     return false;
 }

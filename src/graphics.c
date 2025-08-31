@@ -3,6 +3,15 @@
 //textures
 Texture2D hiddenTileTex;
 Texture2D revealedTileTex;
+Texture2D mine1TileTex;
+Texture2D mine2TileTex;
+Texture2D mine3TileTex;
+Texture2D mine4TileTex;
+Texture2D mine5TileTex;
+Texture2D mine6TileTex;
+Texture2D mine7TileTex;
+Texture2D mine8TileTex;
+
 Texture2D frame1;
 Texture2D frame2;
 Texture2D frame3;
@@ -25,6 +34,15 @@ void LoadTextures(){
 
     //TODO: load from .json?
     hiddenTileTex   = LoadTexture("resources/tileHidden.png"); 
+    mine1TileTex    = LoadTexture("resources/tileNumbers1.png"); 
+    mine2TileTex    = LoadTexture("resources/tileNumbers2.png"); 
+    mine3TileTex    = LoadTexture("resources/tileNumbers3.png"); 
+    mine4TileTex    = LoadTexture("resources/tileNumbers4.png"); 
+    mine5TileTex    = LoadTexture("resources/tileNumbers5.png"); 
+    mine6TileTex    = LoadTexture("resources/tileNumbers6.png"); 
+    mine7TileTex    = LoadTexture("resources/tileNumbers7.png"); 
+    mine8TileTex    = LoadTexture("resources/tileNumbers8.png"); 
+
     revealedTileTex = LoadTexture("resources/tileRevealed.png");
     frame1          = LoadTexture("resources/frame1.png");
     frame2          = LoadTexture("resources/frame2.png");
