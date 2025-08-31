@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <raylib.h>
+#include <raymath.h>
 
 extern int gameWidth;
 extern int gameHeight;
@@ -16,13 +17,17 @@ typedef struct{
     bool isRevealed;
     bool hasBomb;
     bool hasFlag;
+    bool isPressed;
     char neighbourMines;
 } tile;
 
 extern tile tiles[TILES_NUMBER];
+extern tile pressedTile;
+
 //extern RenderTexture2D boardFrame;
 
 void InitBoard(int tileWidth,int _gameWidth, int _gameHeight);
 void DrawBoard();
+bool InitTiles();
 
 #endif

@@ -9,6 +9,7 @@ void InitUI(int _tileWidth, int _gameWidth){
     btn1.rec       = (Rectangle) { _gameWidth/2-_tileWidth, 4, smilling.width,smilling.height };
     btn1.texture   = smilling;
     btn1.isPressed = false;
+    btn1.id        = 0;
     buttons[0] = btn1;
 }
 
@@ -44,15 +45,7 @@ void DrawUI(int _hiddenMines, int _elapsedTime){
 
 }
 
-void DrawMines(){
+bool IsStartPressed(){
 
+    return false;
 }
-
-void DrawTimer(){
-
-}
-
-void DrawFrames(){
-
-}
-

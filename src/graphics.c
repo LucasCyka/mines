@@ -2,6 +2,7 @@
 
 //textures
 Texture2D hiddenTileTex;
+Texture2D revealedTileTex;
 Texture2D frame1;
 Texture2D frame2;
 Texture2D frame3;
@@ -23,11 +24,12 @@ void LoadTextures(){
     }
 
     //TODO: load from .json?
-    hiddenTileTex = LoadTexture("resources/tileHidden.png"); 
-    frame1        = LoadTexture("resources/frame1.png");
-    frame2        = LoadTexture("resources/frame2.png");
-    frame3        = LoadTexture("resources/frame3.png");
-    smilling      = LoadTexture("resources/btn_smiling.png");
+    hiddenTileTex   = LoadTexture("resources/tileHidden.png"); 
+    revealedTileTex = LoadTexture("resources/tileRevealed.png");
+    frame1          = LoadTexture("resources/frame1.png");
+    frame2          = LoadTexture("resources/frame2.png");
+    frame3          = LoadTexture("resources/frame3.png");
+    smilling        = LoadTexture("resources/btn_smiling.png");
 
     scoreNumbers[0] = LoadTexture("resources/ScoreNumbers1.png"); 
     scoreNumbers[1] = LoadTexture("resources/ScoreNumbers2.png"); 

@@ -7,6 +7,7 @@
 
 //textures
 extern Texture2D hiddenTileTex;
+extern Texture2D revealedTileTex;
 extern Texture2D frame1;
 extern Texture2D frame2;
 extern Texture2D frame3;

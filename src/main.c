@@ -10,7 +10,7 @@
 #include "ui.h"
 #include "graphics.h"
 
-enum GAME_STATE {RUNNING,PAUSED,OVER};
+enum GAME_STATE {STARTING,RUNNING,WINNING,LOSING,QUITTING};
 
 int windowWidth       = 800;
 int windowHeight      = 450;
@@ -19,8 +19,10 @@ int hiddenMines       = 321;
 int gameWidth         = 416;
 int gameHeight        = 234;
 
-RenderTexture2D boardFrame;
+enum GAME_STATE currentState = STARTING;
+enum GAME_STATE nextState    = STARTING;
 
+RenderTexture2D boardFrame;
 
 int main(){
 
@@ -34,6 +36,32 @@ int main(){
     
     while (!WindowShouldClose())
     {
+        
+
+        switch (currentState)
+        {
+        case STARTING:
+            if (InitTiles()){
+                //Goes to running
+            }
+
+            break;
+        case RUNNING:
+
+            break;
+        case WINNING:
+            break;
+        
+        case LOSING:
+            break;
+        
+        case QUITTING:
+            break;
+
+        default:
+            break;
+        }
+
 
         BeginTextureMode(boardFrame);
 
@@ -51,7 +79,8 @@ int main(){
         (Rectangle){windowWidth - ((float)gameWidth*scale), windowHeight - ((float)gameHeight*scale),(float)gameWidth*scale,(float)gameHeight*scale,
         },(Vector2){0,0},0.0f,WHITE);
 
-        
+
+            //DrawText(TextFormat("Mouse: %i, %i",(int)GetMousePosition().x,(int)gameMouse.x),0,0,24,WHITE);
         EndDrawing();
     }
     
