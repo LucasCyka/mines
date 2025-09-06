@@ -2,7 +2,7 @@
 #define BOARD
 
 #define TILES_NUMBER   288
-#define MINES_NUMBER   44
+#define MINES_NUMBER   55
 
 #include <string.h>
 #include <stdio.h>
@@ -11,6 +11,7 @@
 
 extern int gameWidth;
 extern int gameHeight;
+extern int tileWidth;
 
 typedef struct{
     Vector2 position;
@@ -27,9 +28,9 @@ extern int pressedTile;
 
 //extern RenderTexture2D boardFrame;
 
-void InitBoard(int tileWidth,int _gameWidth, int _gameHeight);
+void InitBoard(int _tileWidth,int _gameWidth, int _gameHeight);
 void DrawBoard();
-int  getTileNeighbours(int tileID);
+int  getNeighbouringMines(int tileID);
 bool InitTiles();
 bool revealTileFrom(int tileID);
 

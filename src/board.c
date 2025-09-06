@@ -5,10 +5,12 @@
 //RenderTexture2D boardFrame;
 tile tiles[TILES_NUMBER];
 int pressedTile = 0;
+int tileWidth   = 0;
 
-void InitBoard(int tileWidth,int _gameWidth, int _gameHeight){
+void InitBoard(int _tileWidth,int _gameWidth, int _gameHeight){
     gameWidth  = _gameWidth;
     gameHeight = _gameHeight;
+    tileWidth  = _tileWidth;
     int id = 0;
     for (int y = 0; y < 12; y++){
 
@@ -81,11 +83,68 @@ bool InitTiles(){
     return false;
 }
 
-int getTileNeighbours(int tileID){
+int getNeighbouringMines(int tileID){
 
+
+    return 0;
 }
 
 bool revealTileFrom(int tileID){
+
+    int nMines = 0;
+    Vector2 tpos = tiles[tileID].position;
+
+    tiles[tileID].isRevealed = true;
+
+    Vector2 neighbourPos[8] = {
+        (Vector2) {tpos.x+tileWidth,tpos.y},
+        (Vector2) {tpos.x-tileWidth,tpos.y},
+        (Vector2) {tpos.x,tpos.y+tileWidth},
+        (Vector2) {tpos.x,tpos.y-tileWidth},
+        (Vector2) {tpos.x+tileWidth,tpos.y+tileWidth},
+        (Vector2) {tpos.x-tileWidth,tpos.y-tileWidth},
+        (Vector2) {tpos.x+tileWidth,tpos.y-tileWidth},
+        (Vector2) {tpos.x-tileWidth,tpos.y+tileWidth}
+    };
+
+    for(int i = 0; i < TILES_NUMBER; i++){
+
+        if(tiles[i].isRevealed){continue;}
+
+        for(int n = 0; n < 8; n++){
+            if (FloatEquals(tiles[i].position.x, neighbourPos[n].x) && FloatEquals(tiles[i].position.y, neighbourPos[n].y)){
+                if (tiles[i].hasMine){nMines++;}
+                //else{revealTileFrom(i);}
+            }
+        }
+
+    }
+
+    if(nMines == 0){
+        tiles[tileID].sprite = revealedTileTex;
+
+        for(int i = 0; i < TILES_NUMBER; i++){
+
+            if(tiles[i].isRevealed){continue;}
+
+            for(int n = 0; n < 8; n++){
+                if (FloatEquals(tiles[i].position.x, neighbourPos[n].x) && FloatEquals(tiles[i].position.y, neighbourPos[n].y)){
+                    revealTileFrom(i);
+                }
+            }
+
+        }
+
+    }
+
+    if(nMines == 1){tiles[tileID].sprite = mine1TileTex;}
+    if(nMines == 2){tiles[tileID].sprite = mine2TileTex;}
+    if(nMines == 3){tiles[tileID].sprite = mine3TileTex;}
+    if(nMines == 4){tiles[tileID].sprite = mine4TileTex;}
+    if(nMines == 5){tiles[tileID].sprite = mine5TileTex;}
+    if(nMines == 6){tiles[tileID].sprite = mine6TileTex;}
+    if(nMines == 7){tiles[tileID].sprite = mine7TileTex;}
+    if(nMines == 8){tiles[tileID].sprite = mine8TileTex;}
 
 
     return false;
