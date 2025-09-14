@@ -6,7 +6,9 @@
 #include <string.h>
 
 //textures
+//TODO: move tiles textures into an array
 extern Texture2D hiddenTileTex;
+extern Texture2D hiddenTileFlagTex;
 extern Texture2D mine1TileTex;
 extern Texture2D mine2TileTex;
 extern Texture2D mine3TileTex;

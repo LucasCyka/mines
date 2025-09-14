@@ -14,10 +14,11 @@ enum GAME_STATE {STARTING,RUNNING,WINNING,LOSING,QUITTING};
 
 int windowWidth       = 800;
 int windowHeight      = 450;
-int elapsedTime       = 123;
-int hiddenMines       = 321; 
+int elapsedTime       = 0;
+//int hiddenMines       = 321; 
 int gameWidth         = 416;
 int gameHeight        = 234;
+int _frames           = 0;
 
 enum GAME_STATE currentState = STARTING;
 enum GAME_STATE nextState    = STARTING;
@@ -47,6 +48,13 @@ int main(){
 
             break;
         case RUNNING:
+            _frames++;
+            if(_frames % 30 == 0){
+                _frames = 0;
+                elapsedTime++;
+            }
+            
+            PlaceFlags();
 
             break;
         case WINNING:
@@ -66,7 +74,7 @@ int main(){
         BeginTextureMode(boardFrame);
 
             DrawBoard();
-            DrawUI(hiddenMines,elapsedTime);
+            DrawUI(GetRemainingMines(),elapsedTime);
         
         EndTextureMode();
 

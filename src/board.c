@@ -83,6 +83,47 @@ bool InitTiles(){
     return false;
 }
 
+void PlaceFlags(){
+    if(IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)){
+
+        Vector2 pos = {GetMousePosition().x,GetMousePosition().y};
+        pos.x /= (float)GetScreenWidth()/gameWidth;
+        pos.y /= (float)GetScreenHeight()/gameHeight;
+
+        Rectangle mouseRec = {pos.x,pos.y,5,5};
+
+        for (int id = 0; id < TILES_NUMBER; id++){
+            if (tiles[id].isRevealed){continue;}
+
+            if ( CheckCollisionRecs((Rectangle){tiles[id].position.x,tiles[id].position.y,16,16},mouseRec)){
+                
+                if(tiles[id].hasFlag){
+                    tiles[id].sprite = hiddenTileTex;
+                    tiles[id].hasFlag = false;
+                } else {
+                    if(GetRemainingMines() <= 0){break;}
+                    tiles[id].sprite = hiddenTileFlagTex;
+                    tiles[id].hasFlag = true;
+                }
+
+                break;
+            }
+
+        }
+
+    }
+}
+
+int  GetRemainingMines(){
+
+    int mines = 0;
+    for(int id = 0; id < TILES_NUMBER; id++){
+        if (tiles[id].hasFlag){mines++;}
+    }
+
+    return MINES_NUMBER - mines;
+}
+
 int getNeighbouringMines(int tileID){
 
 

@@ -30,7 +30,9 @@ extern int pressedTile;
 
 void InitBoard(int _tileWidth,int _gameWidth, int _gameHeight);
 void DrawBoard();
+void PlaceFlags();
 int  getNeighbouringMines(int tileID);
+int  GetRemainingMines();
 bool InitTiles();
 bool revealTileFrom(int tileID);
 
