@@ -178,6 +178,7 @@ bool revealTileFrom(int tileID){
 
     }
 
+    //TODO: array
     if(nMines == 1){tiles[tileID].sprite = mine1TileTex;}
     if(nMines == 2){tiles[tileID].sprite = mine2TileTex;}
     if(nMines == 3){tiles[tileID].sprite = mine3TileTex;}
@@ -186,6 +187,81 @@ bool revealTileFrom(int tileID){
     if(nMines == 6){tiles[tileID].sprite = mine6TileTex;}
     if(nMines == 7){tiles[tileID].sprite = mine7TileTex;}
     if(nMines == 8){tiles[tileID].sprite = mine8TileTex;}
+
+
+    return false;
+}
+
+void RevealTiles(){
+    Vector2 pos = {GetMousePosition().x,GetMousePosition().y};
+    pos.x /= (float)GetScreenWidth()/gameWidth;
+    pos.y /= (float)GetScreenHeight()/gameHeight;
+    Rectangle mouseRec = {pos.x,pos.y,5,5};
+
+    if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)){ //indication
+
+        for (int id = 0; id < TILES_NUMBER; id++){
+            if (tiles[id].hasFlag){continue;}
+
+            if ( CheckCollisionRecs((Rectangle){tiles[id].position.x,tiles[id].position.y,16,16},mouseRec)){
+                
+                int neighboursNum = 0;
+                Vector2 tpos = tiles[id].position;
+
+                Vector2 neighbourPos[8] = {
+                    (Vector2) {tpos.x+tileWidth,tpos.y},
+                    (Vector2) {tpos.x-tileWidth,tpos.y},
+                    (Vector2) {tpos.x,tpos.y+tileWidth},
+                    (Vector2) {tpos.x,tpos.y-tileWidth},
+                    (Vector2) {tpos.x+tileWidth,tpos.y+tileWidth},
+                    (Vector2) {tpos.x-tileWidth,tpos.y-tileWidth},
+                    (Vector2) {tpos.x+tileWidth,tpos.y-tileWidth},
+                    (Vector2) {tpos.x-tileWidth,tpos.y+tileWidth}
+                 };
+
+                if(tiles[id].isRevealed){
+
+                    for (int nTile = 0; nTile < TILES_NUMBER; nTile++){
+
+                        for (int n = 0; n < 8; n++){
+                            if(FloatEquals(neighbourPos[n].x,tiles[nTile].position.x) && FloatEquals(neighbourPos[n].y,tiles[nTile].position.y)){
+                                neighboursNum++;
+                                if(!tiles[nTile].isRevealed && !tiles[nTile].hasFlag){
+                                    tiles[nTile].sprite = revealedTileTex;
+                                }
+
+                            }
+                        }
+
+                    }
+
+                }
+             
+                for(int i=0; i< TILES_NUMBER; i++){
+                    bool isNeighbour = false;
+                    if(tiles[i].isRevealed || tiles[i].hasFlag) {continue;}
+                    for(int y=0; y < 8; y++){
+                        if(FloatEquals(neighbourPos[y].x,tiles[i].position.x) && FloatEquals(neighbourPos[y].y,tiles[i].position.y)){
+                            isNeighbour = true;
+                        }
+                    }
+                    if(!isNeighbour) {tiles[i].sprite = hiddenTileTex;}
+                }
+
+            }
+            //break;
+
+         }
+
+    }else if(IsMouseButtonReleased(MOUSE_BUTTON_LEFT)){
+
+    }
+
+}
+
+bool RevealFailed(){
+
+
 
 
     return false;

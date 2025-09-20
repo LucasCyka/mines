@@ -55,6 +55,7 @@ int main(){
             }
             
             PlaceFlags();
+            RevealTiles();
 
             break;
         case WINNING:
