@@ -1,7 +1,8 @@
 #include "board.h"
 #include "graphics.h"
 
-
+//warning: very bad code ahead
+//coded while drunk at saturday nights
 //RenderTexture2D boardFrame;
 tile tiles[TILES_NUMBER];
 int pressedTile = 0;
@@ -235,6 +236,15 @@ void RevealTiles(){
 
                     }
 
+                }else{
+                    tiles[id].sprite = revealedTileTex;
+                    for(int ii = 0; ii < TILES_NUMBER; ii++){
+                        if(tiles[ii].hasFlag || ii == id || tiles[ii].isRevealed) {continue;}
+
+                        tiles[ii].sprite = hiddenTileTex;
+                    }
+
+                    break;
                 }
              
                 for(int i=0; i< TILES_NUMBER; i++){
@@ -255,6 +265,28 @@ void RevealTiles(){
 
     }else if(IsMouseButtonReleased(MOUSE_BUTTON_LEFT)){
 
+        Vector2 pos = {GetMousePosition().x,GetMousePosition().y};
+        pos.x /= (float)GetScreenWidth()/gameWidth;
+        pos.y /= (float)GetScreenHeight()/gameHeight;
+        Rectangle mouseRec = {pos.x,pos.y,5,5};
+
+        for (int i = 0; i < TILES_NUMBER; i++){
+            if(tiles[i].hasFlag) {continue;}
+
+            if(!tiles[i].isRevealed){
+                tiles[i].sprite = hiddenTileTex;
+            }
+
+             if ( CheckCollisionRecs((Rectangle){tiles[i].position.x,tiles[i].position.y,16,16},mouseRec)){
+
+                if(!tiles[i].isRevealed && !tiles[i].hasMine){
+                    revealTileFrom(i);
+                    break;
+                }
+
+            }
+
+        }
     }
 
 }
