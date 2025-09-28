@@ -17,6 +17,8 @@ extern Texture2D mine5TileTex;
 extern Texture2D mine6TileTex;
 extern Texture2D mine7TileTex;
 extern Texture2D mine8TileTex;
+extern Texture2D bombTileTex;
+extern Texture2D bombRedTileTex;
 extern Texture2D revealedTileTex;
 
 extern Texture2D frame1;

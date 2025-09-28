@@ -32,10 +32,12 @@ void InitBoard(int _tileWidth,int _gameWidth, int _gameHeight);
 void DrawBoard();
 void PlaceFlags();
 void RevealTiles();
+void RevealMines();
 int  getNeighbouringMines(int tileID);
 int  GetRemainingMines();
 bool InitTiles();
 bool revealTileFrom(int tileID);
 bool RevealFailed();
+bool CheckFailure();
 
 #endif

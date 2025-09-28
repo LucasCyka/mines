@@ -12,6 +12,8 @@ Texture2D mine5TileTex;
 Texture2D mine6TileTex;
 Texture2D mine7TileTex;
 Texture2D mine8TileTex;
+Texture2D bombTileTex;
+Texture2D bombRedTileTex;
 
 Texture2D frame1;
 Texture2D frame2;
@@ -44,6 +46,8 @@ void LoadTextures(){
     mine6TileTex      = LoadTexture("resources/tileNumbers6.png"); 
     mine7TileTex      = LoadTexture("resources/tileNumbers7.png"); 
     mine8TileTex      = LoadTexture("resources/tileNumbers8.png"); 
+    bombTileTex       = LoadTexture("resources/bombTile.png"); 
+    bombRedTileTex    = LoadTexture("resources/bombRedTile.png"); 
 
     revealedTileTex   = LoadTexture("resources/tileRevealed.png");
     frame1            = LoadTexture("resources/frame1.png");

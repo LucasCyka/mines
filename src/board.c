@@ -282,6 +282,10 @@ void RevealTiles(){
                 if(!tiles[i].isRevealed && !tiles[i].hasMine){
                     revealTileFrom(i);
                     break;
+                }else if(!tiles[i].isRevealed){
+                    tiles[i].isRevealed = true;
+                    tiles[i].sprite = bombRedTileTex;
+                    break;
                 }
 
             }
@@ -297,4 +301,28 @@ bool RevealFailed(){
 
 
     return false;
+}
+
+bool CheckFailure(){
+
+    for (int id = 0; id < TILES_NUMBER; id++){
+
+        if(tiles[id].hasMine && tiles[id].isRevealed){
+            return true;
+        }
+
+    }
+
+    return false;
+
+}
+
+void RevealMines(){
+    for (int id = 0; id < TILES_NUMBER; id++){
+
+        if(tiles[id].hasMine && !tiles[id].isRevealed){
+            tiles[id].sprite = bombTileTex;
+        }
+
+    }
 }

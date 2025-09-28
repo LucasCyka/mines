@@ -56,12 +56,16 @@ int main(){
             
             PlaceFlags();
             RevealTiles();
+            if (CheckFailure()){
+                currentState = LOSING;
+            }
 
             break;
         case WINNING:
             break;
         
         case LOSING:
+            RevealMines();
             break;
         
         case QUITTING:
