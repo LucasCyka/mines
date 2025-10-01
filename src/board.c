@@ -197,7 +197,7 @@ void RevealTiles(){
     Vector2 pos = {GetMousePosition().x,GetMousePosition().y};
     pos.x /= (float)GetScreenWidth()/gameWidth;
     pos.y /= (float)GetScreenHeight()/gameHeight;
-    Rectangle mouseRec = {pos.x,pos.y,5,5};
+    Rectangle mouseRec = {pos.x,pos.y,1,1};
 
     if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)){ //indication
 
@@ -268,7 +268,7 @@ void RevealTiles(){
         Vector2 pos = {GetMousePosition().x,GetMousePosition().y};
         pos.x /= (float)GetScreenWidth()/gameWidth;
         pos.y /= (float)GetScreenHeight()/gameHeight;
-        Rectangle mouseRec = {pos.x,pos.y,5,5};
+        Rectangle mouseRec = {pos.x,pos.y,1,1};
 
         for (int i = 0; i < TILES_NUMBER; i++){
             if(tiles[i].hasFlag) {continue;}
@@ -277,7 +277,7 @@ void RevealTiles(){
                 tiles[i].sprite = hiddenTileTex;
             }
 
-             if ( CheckCollisionRecs((Rectangle){tiles[i].position.x,tiles[i].position.y,16,16},mouseRec)){
+             if ( CheckCollisionRecs((Rectangle){tiles[i].position.x,tiles[i].position.y,16,16},mouseRec) ){
 
                 if(!tiles[i].isRevealed && !tiles[i].hasMine){
                     revealTileFrom(i);
@@ -286,6 +286,87 @@ void RevealTiles(){
                     tiles[i].isRevealed = true;
                     tiles[i].sprite = bombRedTileTex;
                     break;
+                }else if(tiles[i].isRevealed && !tiles[i].hasMine){
+                    
+                    Vector2 tpos = tiles[i].position;
+
+                    Vector2 neighbourPos[8] = {
+                        (Vector2) {tpos.x+tileWidth,tpos.y},
+                        (Vector2) {tpos.x-tileWidth,tpos.y},
+                        (Vector2) {tpos.x,tpos.y+tileWidth},
+                        (Vector2) {tpos.x,tpos.y-tileWidth},
+                        (Vector2) {tpos.x+tileWidth,tpos.y+tileWidth},
+                        (Vector2) {tpos.x-tileWidth,tpos.y-tileWidth},
+                        (Vector2) {tpos.x+tileWidth,tpos.y-tileWidth},
+                        (Vector2) {tpos.x-tileWidth,tpos.y+tileWidth}
+                    };
+                    int nMines = 0;
+                    int nFlags = 0;
+                    bool mistake  = false;
+
+                    for (int ii = 0; ii < TILES_NUMBER; ii++){
+                        
+                        if(ii == i || tiles[ii].isRevealed) {continue;}
+
+                        for(int n = 0; n < 8; n++){
+                            if ( FloatEquals(tiles[ii].position.x,neighbourPos[n].x) && FloatEquals(tiles[ii].position.y,neighbourPos[n].y) ){
+                                
+                                if(tiles[ii].hasFlag){nFlags++;}
+                                if(tiles[ii].hasMine){nMines++;}
+
+                                if(tiles[ii].hasFlag && !tiles[ii].hasMine){mistake = true;}
+
+                            }
+                        }
+
+
+                    }
+
+                    if (nFlags == nMines && !mistake){
+                        
+                        for (int ii = 0; ii < TILES_NUMBER; ii++){
+
+                            if(ii == i || tiles[ii].isRevealed || tiles[ii].hasFlag) {continue;}
+
+                            for(int n = 0; n < 8; n++){
+                                if ( FloatEquals(tiles[ii].position.x,neighbourPos[n].x) && FloatEquals(tiles[ii].position.y,neighbourPos[n].y) ){
+                                    
+                                    revealTileFrom(ii);
+
+                                }
+                            }
+
+
+                        }
+
+                    }else if(nFlags >= nMines || mistake){
+                        for (int ii = 0; ii < TILES_NUMBER; ii++){
+
+                            if(ii == i || tiles[ii].isRevealed) {continue;}
+
+                            for(int n = 0; n < 8; n++){
+                                if ( FloatEquals(tiles[ii].position.x,neighbourPos[n].x) && FloatEquals(tiles[ii].position.y,neighbourPos[n].y) ){
+                                    
+                                    if(tiles[ii].hasMine){
+                                        tiles[ii].isRevealed = true;
+                                        tiles[ii].sprite = bombRedTileTex;
+                                    }
+
+                                }
+                            }
+
+
+                        }
+                    }
+
+
+                    for (int ii = 0; ii < TILES_NUMBER; ii++){
+                        if(!tiles[ii].isRevealed && !tiles[ii].hasFlag){
+                            tiles[ii].sprite = hiddenTileTex;
+                        }
+                    }
+                    break;
+
                 }
 
             }
