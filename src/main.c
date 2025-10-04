@@ -15,7 +15,6 @@ enum GAME_STATE {STARTING,RUNNING,WINNING,LOSING,QUITTING};
 int windowWidth       = 800;
 int windowHeight      = 450;
 int elapsedTime       = 0;
-//int hiddenMines       = 321; 
 int gameWidth         = 416;
 int gameHeight        = 234;
 int _frames           = 0;
@@ -58,14 +57,31 @@ int main(){
             RevealTiles();
             if (CheckFailure()){
                 currentState = LOSING;
+                UpdateButtonTexture(0,angry,angryPressed);
+            }else if(IsBoardDone()){
+                currentState = WINNING;
+                UpdateButtonTexture(0,sunglasses,sunglassesPressed);
+
+            }else{
+                if(IsStartPressed()){
+
+                }
             }
 
             break;
         case WINNING:
+            SolveBoard();
+            if(IsStartPressed()){
+                    
+            }
+
             break;
         
         case LOSING:
             RevealMines();
+            if(IsStartPressed()){
+                    
+            }
             break;
         
         case QUITTING:

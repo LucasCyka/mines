@@ -2,7 +2,7 @@
 #define BOARD
 
 #define TILES_NUMBER   288
-#define MINES_NUMBER   55
+#define MINES_NUMBER   20
 
 #include <string.h>
 #include <stdio.h>
@@ -33,11 +33,13 @@ void DrawBoard();
 void PlaceFlags();
 void RevealTiles();
 void RevealMines();
+void SolveBoard();
 int  getNeighbouringMines(int tileID);
 int  GetRemainingMines();
 bool InitTiles();
 bool revealTileFrom(int tileID);
 bool RevealFailed();
 bool CheckFailure();
+bool IsBoardDone();
 
 #endif

@@ -19,6 +19,11 @@ Texture2D frame1;
 Texture2D frame2;
 Texture2D frame3;
 Texture2D smilling;
+Texture2D angry;
+Texture2D sunglasses;
+Texture2D smillingPressed;
+Texture2D angryPressed;
+Texture2D sunglassesPressed;
 Texture2D scoreNumbers[10];
 
 void LoadTextures(){
@@ -54,6 +59,11 @@ void LoadTextures(){
     frame2            = LoadTexture("resources/frame2.png");
     frame3            = LoadTexture("resources/frame3.png");
     smilling          = LoadTexture("resources/btn_smiling.png");
+    angry             = LoadTexture("resources/btn_angry.png");
+    sunglasses        = LoadTexture("resources/btn_sun.png");
+    smillingPressed   = LoadTexture("resources/btn_smiling_Pressed.png");
+    angryPressed      = LoadTexture("resources/btn_angry_pressed.png");
+    sunglassesPressed = LoadTexture("resources/btn_sun_pressed.png");
 
     scoreNumbers[0]   = LoadTexture("resources/ScoreNumbers1.png"); 
     scoreNumbers[1]   = LoadTexture("resources/ScoreNumbers2.png"); 

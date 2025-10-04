@@ -193,6 +193,23 @@ bool revealTileFrom(int tileID){
     return false;
 }
 
+
+bool IsBoardDone(){
+
+    bool isDone = true;
+
+    for(int id = 0; id < TILES_NUMBER; id++){
+
+        if(!tiles[id].isRevealed && !tiles[id].hasMine){
+            isDone = false;
+            break;
+        }
+
+    }
+
+    return isDone;
+}
+
 void RevealTiles(){
     Vector2 pos = {GetMousePosition().x,GetMousePosition().y};
     pos.x /= (float)GetScreenWidth()/gameWidth;
@@ -371,6 +388,17 @@ void RevealTiles(){
 
             }
 
+        }
+    }
+
+}
+
+void SolveBoard(){
+
+    for(int id = 0; id < TILES_NUMBER; id++){
+        if(tiles[id].hasMine){
+            tiles[id].hasFlag = true;
+            tiles[id].sprite = hiddenTileFlagTex;
         }
     }
 

@@ -25,6 +25,11 @@ extern Texture2D frame1;
 extern Texture2D frame2;
 extern Texture2D frame3;
 extern Texture2D smilling;
+extern Texture2D angry;
+extern Texture2D sunglasses;
+extern Texture2D smillingPressed;
+extern Texture2D angryPressed;
+extern Texture2D sunglassesPressed;
 extern Texture2D scoreNumbers[10];
 
 void LoadTextures();
